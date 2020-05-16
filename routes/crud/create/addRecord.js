@@ -2,15 +2,11 @@ const express = require("express");
 const bodyParser = require("../../../lib/middleware/bodyParser")
 const userRecords = require("../../../models/record");
 
-
 const addRecord = async (req, res) => {
     try {
-      console.log(req.body);
       const record = new userRecords(req.body)
-      const result = await record.save();
-    //   const hashedPassword = await bcrypt.hash(password, 10);
-  
-      res.send("you reached adding records route");
+      const result = await record.save();  
+      res.send(result);
     } catch (error) {
       console.error(error);
       res.status(500);
@@ -18,7 +14,6 @@ const addRecord = async (req, res) => {
     }
   };
   
- 
 const addRecordRoute = express.Router();
 
 addRecordRoute.route("/").post(bodyParser.json(), addRecord);
